@@ -1,1 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chrispreet Singh Gill | Yeezy Hacker 2K25</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@400;700&family=Unica+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --yeezy-gold: #FFD700;
+      --cyber-purple: #C724F1;
+      --matrix-green: #00FF9D;
+      --void-black: #050505;
+      --hud-blue: #00D8FF;
+      --text-glow: 0 0 10px currentColor;
+    }
 
+    @keyframes float-bear {
+      0%, 100% { transform: translate(0, 0) rotate(-5deg); }
+      25% { transform: translate(20px, -30px) rotate(5deg); }
+      50% { transform: translate(-20px, -15px) rotate(-3deg); }
+      75% { transform: translate(15px, -25px) rotate(2deg); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-20px) rotate(1deg); }
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 3px 0 var(--cyber-purple), -3px 0 var(--hud-blue); }
+      25% { text-shadow: -3px 0 var(--hud-blue), 3px 0 var(--cyber-purple); }
+      50% { text-shadow: 2px 0 var(--matrix-green), -2px 0 var(--yeezy-gold); }
+      100% { text-shadow: -1px 0 var(--hud-blue), 1px 0 var(--cyber-purple); }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--void-black);
+      font-family: 'Red Hat Mono', monospace;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(5,5,5,0.9), rgba(5,5,5,0.9)),
+              url('https://i.postimg.cc/76pC5R42/ab78606ccdeb21353bf0ca75b097ac72.jpg') center center / cover no-repeat;
+      z-index: -2;
+    }
+
+    .flying-bears {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .bear {
+      position: absolute;
+      width: 120px;
+      height: auto;
+      opacity: 0.2;
+      animation: float-bear 15s infinite ease-in-out;
+      filter: drop-shadow(0 0 10px var(--yeezy-gold));
+    }
+
+    .bear:nth-child(1) {
+      top: 10%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+    .bear:nth-child(2) {
+      top: 30%;
+      right: 10%;
+      animation-delay: 3s;
+      width: 80px;
+    }
+    .bear:nth-child(3) {
+      bottom: 20%;
+      left: 15%;
+      animation-delay: 6s;
+      width: 100px;
+    }
+    .bear:nth-child(4) {
+      bottom: 30%;
+      right: 20%;
+      animation-delay: 9s;
+      width: 150px;
+    }
+
+    .card {
+      position: relative;
+      width: 95%;
+      max-width: 650px;
+      background: rgba(10, 10, 15, 0.7);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 0 30px rgba(199, 36, 241, 0.7);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      animation: float 8s ease-in-out infinite;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 26px;
+      background: linear-gradient(45deg, var(--yeezy-gold), var(--cyber-purple), var(--matrix-green));
+      z-index: -1;
+      filter: blur(25px);
+      opacity: 0.6;
+      background-size: 300% 300%;
+      animation: gradient-pulse 12s ease infinite;
+    }
+
+    @keyframes gradient-pulse {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .badge {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      background: linear-gradient(45deg, var(--yeezy-gold), var(--cyber-purple));
+      color: black;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+      z-index: 11;
+    }
+
+    .profile-container {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .profile-pic {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--yeezy-gold);
+      box-shadow: 0 0 30px var(--yeezy-gold);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      z-index: 2;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 50px var(--yeezy-gold);
+    }
+
+    .name {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin: 25px 0 10px;
+      font-family: 'Unica One', sans-serif;
+      color: var(--yeezy-gold);
+      text-shadow: var(--text-glow);
+      animation: glitch 5s infinite alternate;
+    }
+
+    .title {
+      font-size: 1.1rem;
+      color: var(--hud-blue);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .title::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--yeezy-gold), transparent);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 40px 0;
+    }
+
+    .stat-card {
+      background: rgba(20, 20, 30, 0.6);
+      border: 1px solid rgba(0, 216, 255, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(0, 216, 255, 0.2);
+      border-color: var(--yeezy-gold);
+    }
+
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: var(--yeezy-gold);
+      margin-bottom: 5px;
+      font-family: 'Unica One', sans-serif;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .terminal {
+      background: rgba(5, 5, 10, 0.7);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 40px 0;
+      border: 1px solid rgba(0, 255, 157, 0.2);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .terminal-buttons {
+      display: flex;
+      gap: 8px;
+      margin-right: 15px;
+    }
+
+    .terminal-btn {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+
+    .terminal-btn.red { background: #FF5F56; }
+    .terminal-btn.yellow { background: #FFBD2E; }
+    .terminal-btn.green { background: #27C93F; }
+
+    .terminal-title {
+      font-size: 0.8rem;
+      color: var(--hud-blue);
+      font-family: 'Red Hat Mono', monospace;
+    }
+
+    .terminal-body {
+      font-family: 'Red Hat Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--matrix-green);
+      min-height: 80px;
+      line-height: 1.6;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 18px;
+      background: var(--matrix-green);
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+    }
+
+    .music-player {
+      margin: 40px 0;
+    }
+
+    .spotify-embed {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .spotify-embed:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 40px rgba(199, 36, 241, 0.5);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .social-link {
+      color: var(--hud-blue);
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .social-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--yeezy-gold);
+      transition: width 0.3s ease;
+    }
+
+    .social-link:hover {
+      color: var(--yeezy-gold);
+      transform: translateY(-5px);
+    }
+
+    .social-link:hover::after {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .card { padding: 30px; }
+      .name { font-size: 2.2rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .profile-pic { width: 140px; height: 140px; }
+      .bear { width: 80px !important; }
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 25px 20px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .name { font-size: 1.8rem; }
+      .title { font-size: 0.9rem; }
+      .social-links { gap: 20px; }
+      .bear { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Elements -->
+  <div class="gradient-bg"></div>
+  <div class="flying-bears">
+    <img src="https://i.postimg.cc/1tyCLv2D/1000137013.png" class="bear" alt="Flying Graduation Bear">
+    <img src="https://i.postimg.cc/1tyCLv2D/1000137013.png" class="bear" alt="Flying Graduation Bear">
+    <img src="https://i.postimg.cc/1tyCLv2D/1000137013.png" class="bear" alt="Flying Graduation Bear">
+    <img src="https://i.postimg.cc/1tyCLv2D/1000137013.png" class="bear" alt="Flying Graduation Bear">
+  </div>
+
+  <!-- Main Card -->
+  <div class="card">
+    <div class="badge">YEEZY HACKER</div>
+    
+    <div class="profile-container">
+      <img src="https://i.postimg.cc/dQR89ty2/file-00000000d2c06230a33506261a451e95.png" alt="Profile" class="profile-pic">
+      <h1 class="name">Chrispreet Singh Gill</h1>
+      <p class="title">Elite Security Researcher</p>
+    </div>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">137+</div>
+        <div class="stat-label">Critical Exploits</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">$320K+</div>
+        <div class="stat-label">Bounties Earned</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">AI/ML</div>
+        <div class="stat-label">Security Specialist</div>
+      </div>
+    </div>
+    
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="terminal-buttons">
+          <div class="terminal-btn red"></div>
+          <div class="terminal-btn yellow"></div>
+          <div class="terminal-btn green"></div>
+        </div>
+        <div class="terminal-title">root@yeezy-hacker:~# ./hack_the_planet</div>
+      </div>
+      <div class="terminal-body">
+        <span id="typed-skill"></span><span class="cursor"></span>
+      </div>
+    </div>
+    
+    <div class="music-player">
+      <div class="spotify-embed">
+        <iframe src="https://open.spotify.com/embed/track/5TRPicyLGbAF2LGBFbHGvO" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+      </div>
+    </div>
+    
+    <div class="social-links">
+      <a href="https://github.com/xtekky" class="social-link" target="_blank">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://twitter.com/xtekky" class="social-link" target="_blank">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://instagram.com/1kki" class="social-link" target="_blank">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://hackerone.com/xtekky" class="social-link" target="_blank">
+        <i class="fas fa-bug"></i>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Typing Animation
+    const skills = [
+      "> whoami\nSecurity Researcher | AI Red Teamer",
+      "> skills\nZero-Days | Cloud Security | AI Exploits",
+      "> achievements\n$320K+ bounties | Top 0.1% hacker",
+      "> tools\nAI fuzzers | Quantum-resistant crypto | Custom malware",
+      "> philosophy\n\"The future of security is offensive AI\""
+    ];
+
+    let currentLine = 0;
+    let currentChar = 0;
+    let isDeleting = false;
+    let isWaiting = false;
+    const terminal = document.getElementById("typed-skill");
+    const typingSpeed = 20;
+    const deletingSpeed = 10;
+    const lineDelay = 2500;
+
+    function typeTerminal() {
+      if (isWaiting) return;
+      
+      const currentText = skills[currentLine];
+      
+      if (!isDeleting && currentChar < currentText.length) {
+        terminal.textContent = currentText.substring(0, currentChar + 1);
+        currentChar++;
+        setTimeout(typeTerminal, typingSpeed);
+      } else if (!isDeleting) {
+        isWaiting = true;
+        setTimeout(() => {
+          isWaiting = false;
+          isDeleting = true;
+          typeTerminal();
+        }, lineDelay);
+      } else if (isDeleting && currentChar > 0) {
+        terminal.textContent = currentText.substring(0, currentChar - 1);
+        currentChar--;
+        setTimeout(typeTerminal, deletingSpeed);
+      } else {
+        isDeleting = false;
+        currentLine = (currentLine + 1) % skills.length;
+        setTimeout(typeTerminal, 300);
+      }
+    }
+
+    // Start effects
+    setTimeout(() => {
+      typeTerminal();
+      
+      // Make bears interactive
+      const bears = document.querySelectorAll('.bear');
+      bears.forEach(bear => {
+        bear.addEventListener('mouseenter', () => {
+          bear.style.transform = 'scale(1.2)';
+          bear.style.filter = 'drop-shadow(0 0 20px var(--yeezy-gold))';
+        });
+        bear.addEventListener('mouseleave', () => {
+          bear.style.transform = '';
+          bear.style.filter = 'drop-shadow(0 0 10px var(--yeezy-gold))';
+        });
+      });
+    }, 1000);
+  </script>
+</body>
+    </html>
